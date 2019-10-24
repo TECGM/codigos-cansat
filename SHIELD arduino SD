@@ -1,0 +1,41 @@
+#include <SD.h>                                    // Incluimos la librería de la SD.
+int x=1;                                           // Definimos la variable x.
+
+File myFile;                                       // Creamos un archivo en la SD:
+void setup()
+{
+  Serial.begin(9600); 
+  Serial.print("Iniciando SD ...");
+  if (!SD.begin(4)) {
+    Serial.println("No se pudo inicializar");      // Si no se ha podido leer la SD, apareces este mensaje.
+    return;        // Lo volvemos a intentar.
+  }
+  Serial.println("inicializacion exitosa");
+  
+  Serial.println("Escribiendo en SD");                                                 // Si la detecta, aparece este mensaje.
+} 
+
+void loop()
+{
+  myFile = SD.open("NUMEROS.txt", FILE_WRITE);     // Abrimos el archivo de nombre _.txt en función ESCRIBIR.
+  
+  if (myFile) {                                    // Si se consigue abrir el archivo, se escribirá lo siguinte.
+                
+        Serial.println(x); 
+        myFile.println(x);                           // Se escribe en la carpeta de la SD y también en el monitor serie un número empezando en uno que va sumando uno hasta que llega a 100 y luego se resetea.
+        x=x+1;
+      
+        if (x>100){
+          x=0;                                     // Cuando llega a 100 se resetea.
+        }
+        
+        myFile.close();                            // Cerramos el archivo    
+        
+        
+                    
+  
+  } else {
+    Serial.println("Error al abrir el archivo");   // Si no se consigue abrir el archivo , aparece este mensaje.
+  }
+  delay(100);                                      // Lo que tarda en repetir el ciclo.
+}
