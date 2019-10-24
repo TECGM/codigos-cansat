@@ -1,0 +1,21 @@
+#include <DHT.h>
+#include <DHT_U.h>
+int sensor = A2;
+DHT dht(sensor, DHT22);
+int humedad;
+int temperatura;
+void setup() {
+Serial.begin(9600);
+dht.begin();
+}
+void loop() {
+humedad = dht.readHumidity();
+temperatura = dht.readTemperature();
+Serial.println("--------------------------------------------------------------------------------------------------");
+      Serial.print("Temperatura = ");
+      Serial.print(temperatura);
+      Serial.print("ÂºC");
+      Serial.print("  Humedad = ");
+      Serial.print(humedad);
+      Serial.println("%");
+}
