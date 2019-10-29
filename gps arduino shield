@@ -1,0 +1,22 @@
+#include <SoftwareSerial.h>
+/* No es imprescindible incluir la libreria "SoftwareSerial", los módulos de GPS se pueden conectar directamente al "Hardware Serial", y es muy recomendable para aumentar enormemente el rendimiento del procesador. */
+const int RX = 2;
+const int TX = 1;
+ 
+SoftwareSerial gps(RX, TX);
+ 
+void setup()
+{
+   Serial.begin(9600); // puerto hardware de serie "debug" en este código
+   gps.begin(9600); // puerto software de serie para "escuchar" al GPS
+}
+ 
+void loop()
+{
+   if (gps.available())
+   {
+      char data;
+      data = gps.read();
+      Serial.print(data);
+   } 
+}
